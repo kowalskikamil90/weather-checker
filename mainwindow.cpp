@@ -1,19 +1,19 @@
 #include "mainwindow.h"
+#include "weatherquerry.h"
 
-MainWindow::MainWindow()
+MainWindow::MainWindow():
+    labelCountry(new QLabel("Enter country name:")),
+    labelCity(new QLabel("Enter city name:")),
+    labelStatus(new QLabel("READY")),
+    editCountry(new QLineEdit()),
+    editCity(new QLineEdit()),
+    buttonCheck(new QPushButton("CHECK!")),
+    mainLayout(new QVBoxLayout())
 {
     setWindowTitle("Weather checker");
 
-    labelCountry = new QLabel("Enter country name:");
-    labelCity = new QLabel("Enter city name:");
-    buttonCheck = new QPushButton("CHECK!");
-    editCountry = new QLineEdit();
-    editCity = new QLineEdit();
-    labelStatus = new QLabel("READY");
-
     connect(buttonCheck, SIGNAL(clicked()), this, SLOT(checkWeather()));
 
-    mainLayout = new QVBoxLayout;
     mainLayout->addWidget(labelCountry);
     mainLayout->addWidget(editCountry);
     mainLayout->addWidget(labelCity);
@@ -24,7 +24,21 @@ MainWindow::MainWindow()
 
 }
 
+MainWindow::~MainWindow()
+{
+    delete labelCountry;
+    delete labelCity;
+    delete labelStatus;
+    delete editCountry;
+    delete editCity;
+    delete buttonCheck;
+    delete mainLayout;
+    delete weatherChecker;
+}
+
 void MainWindow::checkWeather()
 {
+    WeatherQuerry weatherQuerry(labelCountry->text(), labelCity->text());
+    weatherChecker = new WeatherChecker(weatherQuerry);
     labelStatus->setText("DONE");
 }

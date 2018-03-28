@@ -7,11 +7,15 @@
 #include <QLineEdit>
 #include <QVBoxLayout>
 
+#include <weatherchecker.h>
+
 class MainWindow : public QDialog
 {
-      Q_OBJECT
+    Q_OBJECT
+
 public:
     MainWindow();
+    ~MainWindow();
 
 private slots:
     void checkWeather();
@@ -24,6 +28,7 @@ private:
     QLineEdit *editCity;
     QPushButton *buttonCheck;
     QVBoxLayout *mainLayout;
+    WeatherChecker *weatherChecker;
 };
 
 #endif // MAINWINDOW_H
