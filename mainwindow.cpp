@@ -1,14 +1,30 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+MainWindow::MainWindow()
 {
-    ui->setupUi(this);
+    setWindowTitle("Weather checker");
+
+    labelCountry = new QLabel("Enter country name:");
+    labelCity = new QLabel("Enter city name:");
+    buttonCheck = new QPushButton("CHECK!");
+    editCountry = new QLineEdit();
+    editCity = new QLineEdit();
+    labelStatus = new QLabel("READY");
+
+    connect(buttonCheck, SIGNAL(clicked()), this, SLOT(checkWeather()));
+
+    mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(labelCountry);
+    mainLayout->addWidget(editCountry);
+    mainLayout->addWidget(labelCity);
+    mainLayout->addWidget(editCity);
+    mainLayout->addWidget(buttonCheck);
+    mainLayout->addWidget(labelStatus);
+    setLayout(mainLayout);
+
 }
 
-MainWindow::~MainWindow()
+void MainWindow::checkWeather()
 {
-    delete ui;
+    labelStatus->setText("DONE");
 }

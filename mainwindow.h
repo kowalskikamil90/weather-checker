@@ -1,22 +1,29 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+#include <QDialog>
+#include <QLabel>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QVBoxLayout>
 
-namespace Ui {
-class MainWindow;
-}
-
-class MainWindow : public QMainWindow
+class MainWindow : public QDialog
 {
-    Q_OBJECT
-
+      Q_OBJECT
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    MainWindow();
+
+private slots:
+    void checkWeather();
 
 private:
-    Ui::MainWindow *ui;
+    QLabel *labelCountry;
+    QLabel *labelCity;
+    QLabel *labelStatus;
+    QLineEdit *editCountry;
+    QLineEdit *editCity;
+    QPushButton *buttonCheck;
+    QVBoxLayout *mainLayout;
 };
 
 #endif // MAINWINDOW_H
