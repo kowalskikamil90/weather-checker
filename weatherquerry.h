@@ -10,6 +10,7 @@ class WeatherQuerry
 
 public:
     WeatherQuerry(QString country, QString city);
+    WeatherQuerry();
     QString getCountry();
     QString getCity();
 };

@@ -21,14 +21,14 @@ private slots:
     void checkWeather();
 
 private:
-    QLabel *labelCountry;
-    QLabel *labelCity;
-    QLabel *labelStatus;
-    QLineEdit *editCountry;
-    QLineEdit *editCity;
-    QPushButton *buttonCheck;
-    QVBoxLayout *mainLayout;
-    WeatherChecker *weatherChecker;
+    QLabel *_labelCountry;
+    QLabel *_labelCity;
+    QLabel *_labelStatus;
+    QLineEdit *_editCountry;
+    QLineEdit *_editCity;
+    QPushButton *_buttonCheck;
+    QVBoxLayout *_mainLayout;
+    WeatherChecker *_weatherChecker;
 };
 
 #endif // MAINWINDOW_H

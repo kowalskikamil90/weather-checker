@@ -27,11 +27,13 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     weatherchecker.cpp \
-    weatherquerry.cpp
+    weatherquerry.cpp \
+    weatherresult.cpp
 
 HEADERS += \
         mainwindow.h \
     weatherchecker.h \
-    weatherquerry.h
+    weatherquerry.h \
+    weatherresult.h
 
 FORMS +=

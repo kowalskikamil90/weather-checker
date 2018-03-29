@@ -7,6 +7,11 @@ WeatherQuerry::WeatherQuerry(QString country, QString city):
 
 }
 
+WeatherQuerry::WeatherQuerry()
+{
+
+}
+
 QString WeatherQuerry::getCountry()
 {
     return _country;
