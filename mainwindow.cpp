@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "weatherquerry.h"
 #include "weatherresult.h"
-//#include <QTextStream>
+#include <QTextStream>
 
 MainWindow::MainWindow():
     _labelCountry(new QLabel("Enter country name:")),
@@ -44,10 +44,6 @@ void MainWindow::checkWeather()
     QString country(_editCountry->text());
     QString city(_editCity->text());
 
-//    QTextStream out(stdout);
-//    out << "Country" << editCountry->text() << endl;
-//    out << "city" << editCity->text() << endl;
-
     if (!country.isEmpty() && !city.isEmpty())
     {
         // Fields are filled, the querry may be processed
@@ -58,7 +54,12 @@ void MainWindow::checkWeather()
         _weatherChecker->setQuerry(weatherQuerry);
 
         // This actually sends HTTP GET request
-        WeatherResult weatherResult = _weatherChecker->sendQuerry();
+        _weatherChecker->sendQuerrySetResponse();
+
+        WeatherResult result = _weatherChecker->getResponse();
+
+        QTextStream out(stdout);
+        out << "RESULT: " << endl << result.data << endl;
 
         // Parsing of the results
         _labelStatus->setText("Service not available!");
