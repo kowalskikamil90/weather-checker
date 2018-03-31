@@ -5,8 +5,7 @@
 #include <QNetworkAccessManager>
 #include <QString>
 
-//class WeatherQuerry;
-//class WeatherResult;
+class MyMainWindow;
 
 class WeatherChecker : public QObject
 {
@@ -23,20 +22,24 @@ public:
         QString getCity() {return _city;}
     };
 
-    class WeatherResult
+    struct WeatherResult
     {
-        QString _result;
-    public:
-        WeatherResult(): _result("Unknown") {}
-        WeatherResult(QString result): _result(result) {}
-        QString getResult() {return _result;}
-        void setResult(QString result) {_result = result;}
+        QString weatherMain;
+        QString weatherDescr;
+        double mainTemp;
+        double mainTempMin;
+        double mainTempMax;
+        int mainPressure;
+        int mainHumidity;
+        int windSpeed;
+        int cloudsAll;
     };
 
     explicit WeatherChecker(QObject *parent = nullptr);
     void setQuerry(WeatherQuerry querry);
-    WeatherResult getResponse();
+    void setGui(MyMainWindow *myWindow);
     void sendQuerrySetResponse();
+    WeatherResult getResponse();
 
 signals:
 
@@ -46,7 +49,7 @@ public slots:
 private:
     WeatherQuerry _querry;
     WeatherResult _result;
-    QNetworkReply *_currentReply;
+    MyMainWindow *_myWindow;
     QNetworkAccessManager *_networkManager;
     QUrl createUrl();
 };

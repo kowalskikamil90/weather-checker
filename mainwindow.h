@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef MYMAINWINDOW_H
+#define MYMAINWINDOW_H
 
 #include <QDialog>
 #include <QLabel>
@@ -8,13 +8,17 @@
 #include <QVBoxLayout>
 #include <weatherchecker.h>
 
-class MainWindow : public QDialog
+//class WeatherChecker;
+//class WeatherChecker::WeatherResult;
+
+class MyMainWindow : public QDialog
 {
     Q_OBJECT
 
 public:
-    MainWindow(WeatherChecker *wc);
-    ~MainWindow();
+    MyMainWindow(WeatherChecker *wc);
+    ~MyMainWindow();
+    void updateGui(WeatherChecker::WeatherResult *result);
 
 private slots:
     void checkWeather();
@@ -28,4 +32,4 @@ private:
     WeatherChecker *_weatherChecker;
 };
 
-#endif // MAINWINDOW_H
+#endif // MYMAINWINDOW_H

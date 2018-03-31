@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 #include <QTextStream>
+#include <QDebug>
 
-MainWindow::MainWindow(WeatherChecker *wc):
+MyMainWindow::MyMainWindow(WeatherChecker *wc):
     _labelCity(new QLabel("Enter city name:")),
     _labelStatus(new QLabel("READY")),
     _editCity(new QLineEdit()),
@@ -20,7 +21,7 @@ MainWindow::MainWindow(WeatherChecker *wc):
     setLayout(_mainLayout);
 }
 
-MainWindow::~MainWindow()
+MyMainWindow::~MyMainWindow()
 {
     delete _labelCity;
     delete _labelStatus;
@@ -29,7 +30,7 @@ MainWindow::~MainWindow()
     delete _mainLayout;
 }
 
-void MainWindow::checkWeather()
+void MyMainWindow::checkWeather()
 {
     QString city(_editCity->text());
 
@@ -55,4 +56,12 @@ void MainWindow::checkWeather()
         _labelStatus->setText("Fill both country and city!");
         _labelStatus->setStyleSheet("QLabel { color: red;}");
     }
+}
+
+void MyMainWindow::updateGui(WeatherChecker::WeatherResult *result)
+{
+    // Status: In progress
+    _labelStatus->setText("Done!");
+    _labelStatus->setStyleSheet("QLabel { color: green;}");
+    qDebug() << "WINDOW: " << result->mainTemp << endl;
 }
