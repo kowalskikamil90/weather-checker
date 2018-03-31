@@ -1,16 +1,11 @@
-#include "weatherchecker.h"
 #include <QtNetwork>
-#include <QTextStream>
-
-WeatherChecker::WeatherChecker(WeatherQuerry querry, QObject *parent) :
-    QObject(parent),
-    _querry(querry)
-{
-
-}
+#include <QTextStream> //for debugging
+#include <QDebug>
+#include "weatherchecker.h"
 
 WeatherChecker::WeatherChecker(QObject *parent) :
-    QObject(parent)
+    QObject(parent),
+    _networkManager(new QNetworkAccessManager(this))
 {
 
 }
@@ -22,12 +17,13 @@ void WeatherChecker::setQuerry(WeatherQuerry querry)
 
 void WeatherChecker::sendQuerrySetResponse()
 {
-    QNetworkAccessManager networkManager;
     QUrl url = createUrl();
     QNetworkRequest request;
     request.setUrl(url);
-    connect(&networkManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(onResult(QNetworkReply*)));
-    networkManager.get(request);  // GET method
+    connect(_networkManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(onResult(QNetworkReply*)));
+
+    // HTTP GET method, send request to the server
+    _currentReply = _networkManager->get(request);
 }
 
 QUrl WeatherChecker::createUrl()
@@ -40,17 +36,44 @@ QUrl WeatherChecker::createUrl()
     QString finalUrl(protocol + endpoint + city + metricCelcious + apiKey);
     QTextStream out(stdout);
     out << "CREATE URL: " << endl << finalUrl << endl;
-    return  finalUrl;
+
+    return  (QUrl)finalUrl;
 }
 
 void WeatherChecker::onResult(QNetworkReply* reply)
 {
-    _result.data = (QString) reply->readAll();
+    // Parse JSON response
+    QString jsonString = (QString) reply->readAll();
+    QByteArray jsonBytes = jsonString.toLocal8Bit();
+
+    auto jsonDoc = QJsonDocument::fromJson(jsonBytes);
+
+    if(jsonDoc.isNull()){
+        qDebug()<<"Failed to create JSON doc.";
+        exit(2);
+    }
+    if(!jsonDoc.isObject()){
+        qDebug()<<"JSON is not an object.";
+        exit(3);
+    }
+
+    QJsonObject jsonObj=jsonDoc.object();
+
+    if(jsonObj.isEmpty()){
+        qDebug()<<"JSON object is empty.";
+        exit(4);
+    }
+
+    QVariantMap jsonMap = jsonObj.toVariantMap();
+    QVariant weatherVariant = jsonMap["weather"];
+
+    qDebug()<< "VISIBILITY: " << jsonMap["visibility"].toInt();
+
     QTextStream out(stdout);
-    out << "ON RESULT: " << endl << _result.data << endl;
+    out << "ON RESULT: " << endl << _result.getResult() << endl;
 }
 
-WeatherResult WeatherChecker::getResponse()
+WeatherChecker::WeatherResult WeatherChecker::getResponse()
 {
     return _result;
 }

@@ -26,14 +26,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    weatherchecker.cpp \
-    weatherquerry.cpp \
-    weatherresult.cpp
+    weatherchecker.cpp
 
 HEADERS += \
         mainwindow.h \
-    weatherchecker.h \
-    weatherquerry.h \
-    weatherresult.h
+    weatherchecker.h
 
 FORMS +=
