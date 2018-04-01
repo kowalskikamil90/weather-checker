@@ -1,7 +1,7 @@
 #include <QtNetwork>
 #include <QMap>
-#include "weatherchecker.h"
-#include "mainwindow.h"
+#include <weatherchecker.h>
+#include <mainwindow.h>
 
 WeatherChecker::WeatherChecker(QObject *parent) :
     QObject(parent),
@@ -10,12 +10,12 @@ WeatherChecker::WeatherChecker(QObject *parent) :
     connect(_networkManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(onResult(QNetworkReply*)));
 }
 
-void WeatherChecker::setQuerry(WeatherQuerry querry)
+void WeatherChecker::setQuerry(const WeatherQuerry querry)
 {
     _querry = querry;
 }
 
-void WeatherChecker::sendQuerrySetResponse()
+void WeatherChecker::sendQuerrySetResponse() const
 {
     QUrl url = createUrl();
     QNetworkRequest request;
@@ -26,7 +26,7 @@ void WeatherChecker::sendQuerrySetResponse()
     _networkManager->get(request);
 }
 
-QUrl WeatherChecker::createUrl()
+QUrl WeatherChecker::createUrl() const
 {
     QString protocol("http://");
 
@@ -81,12 +81,12 @@ void WeatherChecker::onResult(QNetworkReply* reply)
     reply->deleteLater();
 }
 
-WeatherChecker::WeatherResult WeatherChecker::getResponse()
+WeatherChecker::WeatherResult WeatherChecker::getResponse() const
 {
     return _result;
 }
 
-void WeatherChecker::setGui(MyMainWindow *myWindow)
+void WeatherChecker::setGui(MyMainWindow* myWindow)
 {
     _myWindow = myWindow;
 }

@@ -19,8 +19,8 @@ public:
         QString _city;
     public:
         WeatherQuerry(): _city("Unknown") {}
-        WeatherQuerry(QString city): _city(city) {}
-        QString getCity() {return _city;}
+        WeatherQuerry(const QString city): _city(city) {}
+        QString getCity() const {return _city;}
     };
 
     struct WeatherResult
@@ -38,10 +38,10 @@ public:
     };
 
     explicit WeatherChecker(QObject *parent = nullptr);
-    void setQuerry(WeatherQuerry querry);
+    void setQuerry(const WeatherQuerry querry);
     void setGui(MyMainWindow *myWindow);
-    void sendQuerrySetResponse();
-    WeatherResult getResponse();
+    void sendQuerrySetResponse() const;
+    WeatherResult getResponse() const;
 
 signals:
 
@@ -53,7 +53,7 @@ private:
     WeatherResult _result;
     MyMainWindow *_myWindow;
     QNetworkAccessManager *_networkManager;
-    QUrl createUrl();
+    QUrl createUrl() const;
 };
 
 #endif // WEATHERCHECKER_H

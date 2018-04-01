@@ -7,7 +7,7 @@
 #include <QLineEdit>
 #include <QVBoxLayout>
 #include <QTableWidget>
-#include "weatherchecker.h"
+#include <weatherchecker.h>
 
 class MyMainWindow : public QDialog
 {

@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include <mainwindow.h>
 
 MyMainWindow::MyMainWindow(WeatherChecker *wc):
     _labelCity(new QLabel("Enter city name:")),

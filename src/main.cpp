@@ -1,6 +1,6 @@
 #include <QApplication>
-#include "mainwindow.h"
-#include "weatherchecker.h"
+#include <mainwindow.h>
+#include <weatherchecker.h>
 
 int main(int argc, char *argv[])
 {
