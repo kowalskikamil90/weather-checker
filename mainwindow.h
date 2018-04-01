@@ -6,10 +6,8 @@
 #include <QPushButton>
 #include <QLineEdit>
 #include <QVBoxLayout>
-#include <weatherchecker.h>
-
-//class WeatherChecker;
-//class WeatherChecker::WeatherResult;
+#include <QTableWidget>
+#include "weatherchecker.h"
 
 class MyMainWindow : public QDialog
 {
@@ -29,6 +27,7 @@ private:
     QLineEdit *_editCity;
     QPushButton *_buttonCheck;
     QVBoxLayout *_mainLayout;
+    QTableWidget* _table;
     WeatherChecker *_weatherChecker;
 };
 

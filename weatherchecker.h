@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QString>
+#include <QNetworkReply>
 
 class MyMainWindow;
 
@@ -33,6 +34,7 @@ public:
         int mainHumidity;
         int windSpeed;
         int cloudsAll;
+        bool netAccess;
     };
 
     explicit WeatherChecker(QObject *parent = nullptr);
